@@ -5,6 +5,7 @@ from datetime import datetime
 from os.path import exists
 
 OUTPUT_PATH = "timely_data.csv"
+sg.ChangeLookAndFeel('LightGreen')
 
 def create_csv():
     with open(OUTPUT_PATH, "w", newline="") as f:
@@ -32,7 +33,7 @@ task_entry_column = [
 task_viewer_column = [
         [sg.Text("Current Task:"), sg.Text(size=(15, 1), key="-CURRENT TASK-")],
         [sg.Button("Pause", key="-PAUSERUN-"), sg.Button("Stop")],
-        [sg.Text("", size=(8, 2), key="-TIMER-")]
+        [sg.Text("", size=(4, 1), key="-TIMER-")]
 ]
 
 layout = [
