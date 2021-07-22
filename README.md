@@ -1,4 +1,7 @@
 # timely
+
+![A screenshot of timely running](example.png)
+
 A very simple time tracker. It's not the prettiest UI or the cleanest code, but it works for my uses.
 
 ## features
