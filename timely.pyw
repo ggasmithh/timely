@@ -25,7 +25,7 @@ def append_to_csv(task_name, elapsed_time, start_datetime, end_datetime):
 
 task_entry_column = [
     [
-        sg.InputText(key="-TASK NAME-", size=(15, 1)),
+        sg.InputText(key="-TASK NAME-", size=(15, 1), do_not_clear=False),
         sg.Button("New Task")
     ]
 ]
@@ -73,7 +73,6 @@ while True:
             task_start_time = time.time()
             elapsed_time = 0
             paused_time = task_start_time
-            window["-TASK NAME-"].update("")
             start_datetime = datetime.now()
     
     elif event == "Pause":
