@@ -32,7 +32,7 @@ task_entry_column = [
 
 task_viewer_column = [
         [sg.Text("Current Task:"), sg.Text(size=(15, 1), key="-CURRENT TASK-")],
-        [sg.Button("Pause", key="-PAUSERUN-"), sg.Button("Stop")],
+        [sg.Button("Pause", key="-PAUSE_RESUME-"), sg.Button("Stop")],
         [sg.Text("", size=(8, 1), key="-TIMER-")]
 ]
 
@@ -59,7 +59,7 @@ while True:
     else: 
         event, values = window.read()
 
-    if event == "-PAUSERUN-":
+    if event == "-PAUSE_RESUME-":
         event = window[event].GetText()
    
     if event == "Exit" or event == sg.WIN_CLOSED:
@@ -79,12 +79,12 @@ while True:
     elif event == "Pause":
         paused = True
         paused_time = time.time()
-        window['-PAUSERUN-'].update(text="Run")
+        window['-PAUSE_RESUME-'].update(text="Resume")
 
-    elif event == "Run":
+    elif event == "Resume":
         paused = False
         task_start_time = task_start_time + time.time() - paused_time
-        window["-PAUSERUN-"].update(text="Pause")
+        window["-PAUSE_RESUME-"].update(text="Pause")
     
     elif event == "Stop":
 
