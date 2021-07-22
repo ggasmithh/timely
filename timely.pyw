@@ -13,7 +13,7 @@ def create_csv():
         csv_writer.writerow(["Task", "Elapsed", "Start", "End"])
 
 def format_time(elapsed_time):
-    return "{:02d}:{:02d}".format((elapsed_time // 100) // 60, (elapsed_time // 100) % 60)
+    return time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
 
 def append_to_csv(task_name, elapsed_time, start_datetime, end_datetime):
     if not exists(OUTPUT_PATH):
@@ -33,7 +33,7 @@ task_entry_column = [
 task_viewer_column = [
         [sg.Text("Current Task:"), sg.Text(size=(15, 1), key="-CURRENT TASK-")],
         [sg.Button("Pause", key="-PAUSERUN-"), sg.Button("Stop")],
-        [sg.Text("", size=(4, 1), key="-TIMER-")]
+        [sg.Text("", size=(8, 1), key="-TIMER-")]
 ]
 
 layout = [
@@ -54,7 +54,7 @@ start_datetime = ""
 while True:
     if not paused:
         event, values = window.read(timeout=10)
-        elapsed_time = int(round(time.time() * 100)) - task_start_time
+        elapsed_time = time.time() - task_start_time
 
     else: 
         event, values = window.read()
@@ -70,7 +70,7 @@ while True:
         if task_name:
             paused = False
             window["-CURRENT TASK-"].update(task_name)
-            task_start_time = int(round(time.time() * 100))
+            task_start_time = time.time()
             elapsed_time = 0
             paused_time = task_start_time
             window["-TASK NAME-"].update("")
@@ -78,12 +78,12 @@ while True:
     
     elif event == "Pause":
         paused = True
-        paused_time = int(round(time.time() * 100))
+        paused_time = time.time()
         window['-PAUSERUN-'].update(text="Run")
 
     elif event == "Run":
         paused = False
-        task_start_time = task_start_time + int(round(time.time() * 100)) - paused_time
+        task_start_time = task_start_time + time.time() - paused_time
         window["-PAUSERUN-"].update(text="Pause")
     
     elif event == "Stop":
@@ -92,7 +92,7 @@ while True:
 
         elapsed_time = 0
         paused = True
-        task_start_time = int(round(time.time() * 100))
+        task_start_time = time.time()
 
 
     window['-TIMER-'].update(format_time(elapsed_time))
